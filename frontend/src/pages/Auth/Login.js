@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext';
-import { Eye, EyeOff, Mail, Lock, Film } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, Film, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Login = () => {
@@ -44,20 +44,37 @@ const Login = () => {
     }
   };
 
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
+  useEffect(() => {
+    // Add dark theme class to body
+    document.body.classList.add('bg-gray-900');
+    return () => {
+      document.body.classList.remove('bg-gray-900');
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
+        {/* Back Button */}
+        <div className="text-left">
+          <Link 
+            to="/" 
+            className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 mr-1" />
+            Back to home
+          </Link>
+        </div>
+        
         {/* Header */}
         <div className="text-center">
-          <div className="flex justify-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center">
-              <Film className="w-8 h-8 text-white" />
-            </div>
-          </div>
-          <h2 className="mt-6 text-3xl font-bold text-secondary-900">
-            Welcome back to BingeKaro
+          <h2 className="mt-4 text-4xl font-bold">
+            Welcome back to <span className="text-indigo-400">BingeKaro</span>
           </h2>
-          <p className="mt-2 text-sm text-secondary-600">
+          <p className="mt-2 text-gray-400">
             Sign in to your account to continue
           </p>
         </div>
@@ -67,12 +84,12 @@ const Login = () => {
           <div className="space-y-4">
             {/* Email/Username Field */}
             <div>
-              <label htmlFor="identifier" className="block text-sm font-medium text-secondary-700 mb-2">
+              <label htmlFor="identifier" className="block text-sm font-medium text-gray-300 mb-2">
                 Email or Username
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-secondary-400" />
+                  <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="identifier"
@@ -80,8 +97,8 @@ const Login = () => {
                   {...register('identifier', {
                     required: 'Email or username is required',
                   })}
-                  className={`input pl-10 ${
-                    errors.identifier ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.identifier ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Enter your email or username"
                 />
@@ -93,12 +110,17 @@ const Login = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-secondary-700 mb-2">
-                Password
-              </label>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                  Password
+                </label>
+                <Link to="/forgot-password" className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors">
+                  Forgot password?
+                </Link>
+              </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-secondary-400" />
+                  <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="password"
@@ -110,8 +132,8 @@ const Login = () => {
                       message: 'Password must be at least 6 characters',
                     },
                   })}
-                  className={`input pl-10 pr-10 ${
-                    errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 pr-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.password ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Enter your password"
                 />
@@ -121,9 +143,9 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-secondary-400 hover:text-secondary-600" />
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
                   ) : (
-                    <Eye className="h-5 w-5 text-secondary-400 hover:text-secondary-600" />
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
                   )}
                 </button>
               </div>
@@ -134,28 +156,54 @@ const Login = () => {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {isLoading ? (
-              <div className="flex items-center space-x-2">
-                <div className="loading-spinner w-4 h-4"></div>
-                <span>Signing in...</span>
+          <div className="space-y-4">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <span>Signing in...</span>
+                </div>
+              ) : (
+                'Sign in'
+              )}
+            </button>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-700"></div>
               </div>
-            ) : (
-              'Sign in'
-            )}
-          </button>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-gray-900 text-gray-400">Or continue with</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Google
+              </button>
+              <button
+                type="button"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                GitHub
+              </button>
+            </div>
+          </div>
 
           {/* Links */}
           <div className="text-center">
-            <p className="text-sm text-secondary-600">
+            <p className="text-sm text-gray-400">
               Don't have an account?{' '}
               <Link
                 to="/register"
-                className="font-medium text-primary-600 hover:text-primary-500 transition-colors"
+                className="font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
               >
                 Sign up here
               </Link>
@@ -164,9 +212,9 @@ const Login = () => {
         </form>
 
         {/* Demo Account Info */}
-        <div className="mt-8 p-4 bg-secondary-50 rounded-lg">
-          <h3 className="text-sm font-medium text-secondary-900 mb-2">Demo Account</h3>
-          <p className="text-xs text-secondary-600">
+        <div className="mt-8 p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700">
+          <h3 className="text-sm font-medium text-gray-200 mb-2">Demo Account</h3>
+          <p className="text-xs text-gray-400">
             For testing purposes, you can use any valid email and password combination
             to register a new account.
           </p>

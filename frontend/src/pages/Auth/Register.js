@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext';
 import { authAPI } from '../../services/api';
-import { Eye, EyeOff, Mail, Lock, User, AtSign, Film } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, AtSign, Film, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Register = () => {
@@ -77,21 +77,34 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    // Add dark theme class to body
+    document.body.classList.add('bg-gray-900');
+    return () => {
+      document.body.classList.remove('bg-gray-900');
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        {/* Header */}
-        <div className="text-center">
-          <div className="flex justify-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center">
-              <Film className="w-8 h-8 text-white" />
-            </div>
-          </div>
-          <h2 className="mt-6 text-3xl font-bold text-secondary-900">
-            Join BingeKaro
-          </h2>
-          <p className="mt-2 text-sm text-secondary-600">
-            Create your account to start discovering amazing content
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
+        {/* Back Button */}
+        <div className="text-left">
+          <Link 
+            to="/" 
+            className="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 mr-1" />
+            Back to home
+          </Link>
+        </div>
+        
+        {/* Demo Account Info */}
+        <div className="mt-8 p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700">
+          <h3 className="text-sm font-medium text-gray-200 mb-2">Demo Account</h3>
+          <p className="text-xs text-gray-400">
+            For testing purposes, you can use any valid email and password combination
+            to register a new account.
           </p>
         </div>
 
@@ -100,12 +113,12 @@ const Register = () => {
           <div className="space-y-4">
             {/* Name Field */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-secondary-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                 Full Name
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-secondary-400" />
+                  <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="name"
@@ -121,8 +134,8 @@ const Register = () => {
                       message: 'Name cannot exceed 50 characters',
                     },
                   })}
-                  className={`input pl-10 ${
-                    errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.name ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Enter your full name"
                 />
@@ -134,12 +147,12 @@ const Register = () => {
 
             {/* Username Field */}
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-secondary-700 mb-2">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
                 Username
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <AtSign className="h-5 w-5 text-secondary-400" />
+                  <AtSign className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="username"
@@ -166,8 +179,8 @@ const Register = () => {
                       return true;
                     },
                   })}
-                  className={`input pl-10 ${
-                    errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.username ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Choose a username"
                 />
@@ -184,12 +197,12 @@ const Register = () => {
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email Address
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-secondary-400" />
+                  <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="email"
@@ -208,8 +221,8 @@ const Register = () => {
                       return true;
                     },
                   })}
-                  className={`input pl-10 ${
-                    errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.email ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Enter your email address"
                 />
@@ -226,12 +239,12 @@ const Register = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-secondary-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                 Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-secondary-400" />
+                  <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="password"
@@ -243,8 +256,8 @@ const Register = () => {
                       message: 'Password must be at least 6 characters',
                     },
                   })}
-                  className={`input pl-10 pr-10 ${
-                    errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 pr-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.password ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Create a password"
                 />
@@ -254,9 +267,9 @@ const Register = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-secondary-400 hover:text-secondary-600" />
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
                   ) : (
-                    <Eye className="h-5 w-5 text-secondary-400 hover:text-secondary-600" />
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
                   )}
                 </button>
               </div>
@@ -267,12 +280,12 @@ const Register = () => {
 
             {/* Confirm Password Field */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-secondary-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
                 Confirm Password
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-secondary-400" />
+                  <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="confirmPassword"
@@ -281,8 +294,8 @@ const Register = () => {
                     required: 'Please confirm your password',
                     validate: (value) => value === password || 'Passwords do not match',
                   })}
-                  className={`input pl-10 pr-10 ${
-                    errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                  className={`w-full px-4 py-3 pl-10 pr-10 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 ${
+                    errors.confirmPassword ? 'border-red-500 focus:ring-red-500' : 'focus:ring-indigo-500'
                   }`}
                   placeholder="Confirm your password"
                 />
@@ -292,9 +305,9 @@ const Register = () => {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-secondary-400 hover:text-secondary-600" />
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
                   ) : (
-                    <Eye className="h-5 w-5 text-secondary-400 hover:text-secondary-600" />
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
                   )}
                 </button>
               </div>
@@ -308,11 +321,11 @@ const Register = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? (
               <div className="flex items-center space-x-2">
-                <div className="loading-spinner w-4 h-4"></div>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                 <span>Creating account...</span>
               </div>
             ) : (
@@ -322,27 +335,25 @@ const Register = () => {
 
           {/* Links */}
           <div className="text-center">
-            <p className="text-sm text-secondary-600">
+            <p className="text-sm text-gray-400">
               Already have an account?{' '}
               <Link
                 to="/login"
-                className="font-medium text-primary-600 hover:text-primary-500 transition-colors"
+                className="font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
               >
-                Sign in here
+                Sign in
               </Link>
             </p>
           </div>
         </form>
-
-        {/* Terms and Privacy */}
         <div className="text-center">
-          <p className="text-xs text-secondary-500">
+          <p className="text-xs text-gray-500">
             By creating an account, you agree to our{' '}
-            <Link to="/terms" className="text-primary-600 hover:text-primary-500">
+            <Link to="/terms" className="text-indigo-400 hover:text-indigo-300">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link to="/privacy" className="text-primary-600 hover:text-primary-500">
+            <Link to="/privacy" className="text-indigo-400 hover:text-indigo-300">
               Privacy Policy
             </Link>
           </p>
