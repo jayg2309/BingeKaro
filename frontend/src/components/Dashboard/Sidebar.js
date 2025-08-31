@@ -45,7 +45,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     <>
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white border-r border-gray-200 px-6 pb-4">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gradient-to-b from-blue-900 to-blue-800 text-white border-r border-blue-700 px-6 pb-4">
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center">
             <h1 className="text-2xl font-bold text-indigo-600">BingeKaro</h1>
@@ -61,11 +61,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                       <NavLink
                         to={item.href}
                         className={({ isActive }) =>
-                          `group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors ${
-                            isActive
-                              ? 'bg-indigo-600 bg-opacity-10 text-indigo-600'
-                              : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
-                          }`
+                          `group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${isActive ? 'bg-blue-700 text-white' : 'text-gray-200 hover:bg-blue-700 hover:text-white'}`
                         }
                       >
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center">
@@ -80,7 +76,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
               {/* User section */}
               <li className="mt-auto">
-                <div className="flex items-center gap-x-4 px-2 py-3 text-sm font-semibold leading-6 text-gray-900">
+                <div className="flex items-center gap-x-4 px-2 py-3 text-sm font-semibold leading-6 text-gray-200">
                   <img
                     className="h-8 w-8 rounded-full bg-gray-50"
                     src={user?.profilePicture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=6366f1&color=fff`}
@@ -91,7 +87,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="group flex w-full gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-600 hover:bg-red-900 hover:bg-opacity-20 hover:text-gray-500 transition-colors"
+                  className="group flex w-full gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-200 hover:bg-blue-700 hover:text-white transition-colors"
                 >
                   <svg className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
@@ -121,10 +117,10 @@ const Sidebar = ({ isOpen, onClose }) => {
               </button>
             </div>
 
-            <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
+            <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-900 text-white px-6 pb-4">
               {/* Logo */}
               <div className="flex h-16 shrink-0 items-center">
-                <h1 className="text-2xl font-bold text-indigo-600">BingeKaro</h1>
+                <h1 className="text-2xl font-bold text-white">BingeKaro</h1>
               </div>
 
               {/* Navigation */}
@@ -138,11 +134,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                             to={item.href}
                             onClick={onClose}
                             className={({ isActive }) =>
-                              `group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors ${
-                                isActive
-                                  ? 'bg-indigo-600 bg-opacity-10 text-indigo-600'
-                                  : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-50'
-                              }`
+                              `group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${isActive ? 'bg-blue-700 text-white' : 'text-gray-200 hover:bg-blue-700 hover:text-white'}`
                             }
                           >
                             <span className="flex h-6 w-6 shrink-0 items-center justify-center">
@@ -157,9 +149,9 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                   {/* User section */}
                   <li className="mt-auto">
-                    <div className="flex items-center gap-x-4 px-2 py-3 text-sm font-semibold leading-6 text-gray-900">
+                    <div className="flex items-center gap-x-4 px-2 py-3 text-sm font-semibold leading-6 text-gray-200">
                       <img
-                        className="h-8 w-8 rounded-full bg-gray-50"
+                        className="h-6 w-6 text-gray-200 group-hover:text-white"
                         src={user?.profilePicture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=6366f1&color=fff`}
                         alt={user?.name}
                       />
@@ -168,7 +160,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                     </div>
                     <button
                       onClick={handleLogout}
-                      className="group flex w-full gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+                      className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-200 hover:bg-blue-700 hover:text-white transition-colors"
                     >
                       <svg className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />

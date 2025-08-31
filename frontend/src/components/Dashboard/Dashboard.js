@@ -17,7 +17,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div
@@ -33,12 +33,12 @@ const Dashboard = () => {
       />
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="lg:pl-64 bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen">
         {/* Mobile header */}
-        <div className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:hidden">
+        <div className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-700 bg-gray-800 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:hidden">
           <button
             type="button"
-            className="-m-2.5 p-2.5 text-gray-700 lg:hidden hover:text-indigo-600 transition-colors"
+            className="-m-2.5 p-2.5 text-gray-300 lg:hidden hover:text-blue-400 transition-colors"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
