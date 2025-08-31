@@ -30,12 +30,48 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      {/* Header with Auth Buttons */}
+      <header className="absolute top-0 right-0 p-6 z-10">
+        <div className="flex items-center space-x-4">
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/register"
+                className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
+              >
+                Sign up
+              </Link>
+            </>
+          ) : (
+            <Link
+              to="/dashboard"
+              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
+            >
+              Go to Dashboard
+            </Link>
+          )}
+        </div>
+      </header>
+
+      {/* Project Name */}
+      <div className="pt-12 text-center">
+        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+          BingeKaro
+        </h1>
+      </div>
+
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl">
+      <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col items-center text-center">
+        <h2 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl">
           Discover & Share Your Favorite
           <span className="block text-indigo-400 mt-2">Movies & TV Shows</span>
-        </h1>
+        </h2>
         <p className="text-xl text-gray-300 mb-12 max-w-2xl">
           Create, explore, and share personalized watchlists with the BingeKaro community.
           Find your next binge-worthy obsession today!
@@ -54,26 +90,6 @@ const Home = () => {
           >
             Explore lists
           </button>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div className="text-4xl font-bold text-indigo-400">10K+</div>
-            <div className="text-gray-400">Active Users</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-indigo-400">50K+</div>
-            <div className="text-gray-400">Watchlists</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-indigo-400">1M+</div>
-            <div className="text-gray-400">Recommendations</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-indigo-400">24/7</div>
-            <div className="text-gray-400">Community Support</div>
-          </div>
         </div>
       </div>
 
@@ -121,6 +137,47 @@ const Home = () => {
                 <p className="text-gray-300">
                   Discover recommendations from other users and share your favorites with the BingeKaro community.
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* How It Works Section */}
+        <div className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              How It Works
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="relative">
+                <div className="absolute -top-4 -left-4 w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl">1</div>
+                <div className="bg-gray-800 p-6 rounded-lg h-full border-l-4 border-indigo-500">
+                  <h3 className="text-xl font-semibold mb-3">Create an Account</h3>
+                  <p className="text-gray-300">
+                    Sign up for free and join our growing community of entertainment enthusiasts.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute -top-4 -left-4 w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl">2</div>
+                <div className="bg-gray-800 p-6 rounded-lg h-full border-l-4 border-indigo-500">
+                  <h3 className="text-xl font-semibold mb-3">Build Your Watchlist</h3>
+                  <p className="text-gray-300">
+                    Add movies and shows you love or want to watch to your personal collection.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute -top-4 -left-4 w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl">3</div>
+                <div className="bg-gray-800 p-6 rounded-lg h-full border-l-4 border-indigo-500">
+                  <h3 className="text-xl font-semibold mb-3">Share & Discover</h3>
+                  <p className="text-gray-300">
+                    Share your lists with friends and discover new content from the community.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

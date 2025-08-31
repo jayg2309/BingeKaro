@@ -98,15 +98,6 @@ const Register = () => {
             Back to home
           </Link>
         </div>
-        
-        {/* Demo Account Info */}
-        <div className="mt-8 p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700">
-          <h3 className="text-sm font-medium text-gray-200 mb-2">Demo Account</h3>
-          <p className="text-xs text-gray-400">
-            For testing purposes, you can use any valid email and password combination
-            to register a new account.
-          </p>
-        </div>
 
         {/* Registration Form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>

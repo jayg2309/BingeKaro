@@ -181,18 +181,12 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="flex justify-center">
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full max-w-xs inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Google
-              </button>
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                GitHub
               </button>
             </div>
           </div>
@@ -210,15 +204,6 @@ const Login = () => {
             </p>
           </div>
         </form>
-
-        {/* Demo Account Info */}
-        <div className="mt-8 p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700">
-          <h3 className="text-sm font-medium text-gray-200 mb-2">Demo Account</h3>
-          <p className="text-xs text-gray-400">
-            For testing purposes, you can use any valid email and password combination
-            to register a new account.
-          </p>
-        </div>
       </div>
     </div>
   );
