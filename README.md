@@ -18,10 +18,10 @@ A full-stack MERN application for personalized movie, series, and anime recommen
 - Username availability checking in real-time
 
 ### 🔍 Enhanced Search & Discovery
-- **OMDB API Integration** for comprehensive movie/TV/anime data
-- Real-time search with advanced filtering
+- **OMDB API Integration** for comprehensive movie and TV show data
+- Real-time search with instant results
 - High-quality posters and detailed metadata
-- Genre-based categorization and ratings
+- Genre-based categorization and IMDB ratings
 
 ### 📄 Advanced Recommendation Lists
 - **Intuitive List Management** - create lists with public/private visibility
@@ -246,7 +246,7 @@ This project is licensed under the MIT License.
 
 ## 🙏 Acknowledgments
 
-- [TMDB](https://www.themoviedb.org/) for providing the movie and TV show data
+- [OMDB API](http://www.omdbapi.com/) for providing the movie and TV show data
 - [Lucide](https://lucide.dev/) for the beautiful icons
 - [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
 
