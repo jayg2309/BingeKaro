@@ -1,4 +1,4 @@
-# BingeKaro 🎬
+# BingeKaro
 
 A full-stack MERN application for personalized movie, series, and anime recommendations. Create and share your favorite lists with the world!
 
