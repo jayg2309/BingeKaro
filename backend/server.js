@@ -28,10 +28,6 @@ const corsOptions = {
     
     const allowedOrigins = process.env.NODE_ENV === 'production' 
       ? [
-          'https://binge-karo.vercel.app',
-          // 'https://www.bingekaro.vercel.app',
-          // 'https://bingekaro-git-main.vercel.app',
-          // 'https://bingekaro-git-develop.vercel.app',
           process.env.FRONTEND_URL
         ].filter(Boolean)
       : ['http://localhost:3000'];
