@@ -26,17 +26,31 @@ const corsOptions = {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    const allowedOrigins = process.env.NODE_ENV === 'production' 
-      ? [
-          'https://binge-karo.vercel.app',
-          'https://www.binge-karo.vercel.app',
-          'https://binge-karo-git-main.vercel.app',
-          'https://binge-karo-git-develop.vercel.app',
-          process.env.FRONTEND_URL
-        ].filter(Boolean)
-      : ['http://localhost:3000'];
+    // Define allowed origins for both production and development
+    const productionOrigins = [
+      'https://binge-karo.vercel.app',
+      'https://www.binge-karo.vercel.app',
+      'https://binge-karo-git-main.vercel.app',
+      'https://binge-karo-git-develop.vercel.app',
+      process.env.FRONTEND_URL
+    ].filter(Boolean);
     
-    console.log('CORS Origin check:', { origin, allowedOrigins });
+    const developmentOrigins = ['http://localhost:3000'];
+    
+    // Check if we're in production (either NODE_ENV=production or if we're on Render)
+    const isProduction = process.env.NODE_ENV === 'production' || 
+                        process.env.RENDER || 
+                        process.env.NODE_ENV === 'development' && origin?.includes('vercel.app');
+    
+    const allowedOrigins = isProduction ? productionOrigins : developmentOrigins;
+    
+    console.log('CORS Origin check:', { 
+      origin, 
+      allowedOrigins, 
+      isProduction,
+      NODE_ENV: process.env.NODE_ENV,
+      RENDER: process.env.RENDER
+    });
     
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -52,13 +66,16 @@ const corsOptions = {
 };
 
 // If you're still having CORS issues, temporarily use this more permissive configuration:
-// const corsOptions = {
-//   origin: true, // Allow all origins temporarily for debugging
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-//   optionsSuccessStatus: 200
-// };
+// Uncomment the lines below and comment out the corsOptions above to use this:
+/*
+const corsOptions = {
+  origin: true, // Allow all origins temporarily for debugging
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
+};
+*/
 
 app.use(cors(corsOptions));
 
