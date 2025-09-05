@@ -100,7 +100,7 @@ const Profile = () => {
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="px-6 py-5 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900">Profile Settings</h1>
+        <h1 className="text-2xl font-bold text-gray-300">Profile Settings</h1>
         <p className="mt-2 text-sm text-gray-600">
           Manage your account settings and preferences
         </p>
