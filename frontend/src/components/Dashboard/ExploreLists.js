@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { recommendationsAPI } from '../../services/api';
 import ListCard from './ListCard';
 import PasswordModal from './PasswordModal';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ExploreLists = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -221,6 +223,7 @@ const ExploreLists = () => {
                 list={list} 
                 showActions={false} 
                 showCreator={true}
+                currentUser={user}
                 onCreatorClick={(username) => navigate(`/dashboard/user/${username}`)}
               />
             </div>

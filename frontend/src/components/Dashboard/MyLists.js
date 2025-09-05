@@ -129,6 +129,7 @@ const MyLists = () => {
               list={list}
               onDelete={handleDeleteList}
               showActions={true}
+              currentUser={user}
               onCreatorClick={(creatorUsername) => navigate(`/dashboard/user/${creatorUsername}`)}
             />
           ))}

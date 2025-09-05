@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onCreatorClick }) => {
+const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onCreatorClick, currentUser = null }) => {
   const navigate = useNavigate();
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -14,6 +14,15 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
   const getItemsPreview = () => {
     if (!list.items || list.items.length === 0) return [];
     return list.items.slice(0, 4);
+  };
+
+  const shouldShowPreview = () => {
+    // If it's a private list and current user is not the owner, don't show preview
+    if (list.isPrivate && currentUser && list.creator && list.creator._id !== currentUser._id) {
+      return false;
+    }
+    // Show preview for public lists or if user is the owner
+    return true;
   };
 
   return (
@@ -91,13 +100,13 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
 
       {/* Items Preview */}
       <div className="p-4">
-        {getItemsPreview().length > 0 ? (
+        {shouldShowPreview() && getItemsPreview().length > 0 ? (
           <div className="grid grid-cols-4 gap-2">
             {getItemsPreview().map((item, index) => (
               <div key={index} className="aspect-[2/3] bg-gray-200 rounded overflow-hidden">
-                {item.posterPath ? (
+                {(item.poster || item.posterPath) ? (
                   <img
-                    src={item.posterPath}
+                    src={item.poster || item.posterPath}
                     alt={item.title}
                     className="w-full h-full object-cover"
                   />
@@ -119,12 +128,19 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
               </div>
             ))}
           </div>
-        ) : (
+        ) : shouldShowPreview() ? (
           <div className="text-center py-6">
             <svg className="mx-auto h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-9 0V3a1 1 0 00-1 1v14a1 1 0 001 1h8a1 1 0 001-1V4a1 1 0 00-1-1m-9 0V3a1 1 0 011-1h8a1 1 0 011 1v1" />
             </svg>
             <p className="mt-2 text-xs text-gray-500">No items yet</p>
+          </div>
+        ) : (
+          <div className="text-center py-6">
+            <svg className="mx-auto h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <p className="mt-2 text-xs text-gray-400">Private content</p>
           </div>
         )}
       </div>
