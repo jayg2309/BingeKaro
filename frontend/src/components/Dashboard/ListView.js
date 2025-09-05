@@ -223,7 +223,7 @@ const ListView = () => {
         <div className="flex items-center justify-between">
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-3">
-              <h1 className="text-2xl font-bold text-gray-900 truncate">{list.name}</h1>
+              <h1 className="text-2xl font-bold text-white truncate">{list.name}</h1>
               <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                 list.isPrivate 
                   ? 'bg-red-900 bg-opacity-20 text-red-400' 

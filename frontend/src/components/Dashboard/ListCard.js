@@ -17,14 +17,14 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-blue-900 bg-opacity-20 rounded-lg shadow-sm border border-blue-500 border-opacity-30 hover:shadow-md transition-shadow duration-200">
       {/* Card Header */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="p-4 border-b border-blue-400 border-opacity-30">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             <Link
               to={`/dashboard/list/${list._id}`}
-              className="text-lg font-semibold text-gray-900 hover:text-indigo-600 transition-colors truncate block"
+              className="text-lg font-semibold text-white hover:text-blue-300 transition-colors truncate block"
             >
               {list.name}
             </Link>
@@ -83,7 +83,7 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
         </div>
         
         {list.description && (
-          <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+          <p className="mt-2 text-sm text-gray-300 line-clamp-2">
             {list.description}
           </p>
         )}
@@ -130,8 +130,8 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
       </div>
 
       {/* Card Footer */}
-      <div className="px-4 py-3 bg-gray-50 border-t border-gray-200">
-        <div className="flex items-center justify-between text-xs text-gray-500">
+      <div className="px-4 py-3 bg-blue-800 bg-opacity-20 border-t border-blue-400 border-opacity-30">
+        <div className="flex items-center justify-between text-xs text-gray-300">
           <div className="flex items-center space-x-2">
             <span>Created {formatDate(list.createdAt)}</span>
             {showCreator && list.creator && (
@@ -147,7 +147,7 @@ const ListCard = ({ list, onDelete, showActions = false, showCreator = true, onC
                       navigate(`/dashboard/user/${list.creator.username}`);
                     }
                   }}
-                  className="text-indigo-600 hover:text-indigo-700 font-medium transition-colors hover:underline"
+                  className="text-blue-300 hover:text-blue-200 font-medium transition-colors hover:underline"
                 >
                   @{list.creator.username}
                 </button>
