@@ -94,9 +94,16 @@ router.post('/login', [
     .notEmpty()
     .withMessage('Password is required')
 ], asyncHandler(async (req, res) => {
+  console.log('Login request received:', {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get('origin')
+  });
+
   // Check for validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log('Validation errors:', errors.array());
     return res.status(400).json({
       success: false,
       errors: errors.array()

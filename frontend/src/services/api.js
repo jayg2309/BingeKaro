@@ -1,14 +1,25 @@
 import axios from 'axios';
 
 // Create axios instance
+const baseURL = process.env.REACT_APP_API_URL || '/api';
+console.log('API Base URL:', baseURL);
+console.log('Environment:', process.env.NODE_ENV);
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || '/api',
+  baseURL: baseURL,
   timeout: 10000,
 });
 
 // Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
+    console.log('API Request:', {
+      url: config.url,
+      baseURL: config.baseURL,
+      fullURL: `${config.baseURL}${config.url}`,
+      method: config.method
+    });
+    
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -22,8 +33,20 @@ api.interceptors.request.use(
 
 // Response interceptor to handle auth errors
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('API Response:', response.config.url, response.status);
+    return response;
+  },
   (error) => {
+    console.error('API Error:', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      message: error.message
+    });
+
     if (error.response?.status === 401) {
       // Check if it's a password-required error for private lists
       const isPasswordRequired = error.response?.data?.requiresPassword || 
@@ -161,10 +184,6 @@ export const recommendationsAPI = {
   
   // Like recommendation list
   likeList: (id) => api.post(`/recommendations/${id}/like`),
-  
-  // Get current user's lists
-  getUserLists: (page = 1, limit = 10) => 
-    api.get('/recommendations', { params: { page, limit } }),
   
   // Get user's lists by username
   getUserListsByUsername: (username) => api.get(`/recommendations/user/${username}`),

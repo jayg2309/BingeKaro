@@ -21,12 +21,36 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com'] 
-    : ['http://localhost:3000'],
-  credentials: true
-}));
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = process.env.NODE_ENV === 'production' 
+      ? [
+          'https://binge-karo.vercel.app',
+          // 'https://www.bingekaro.vercel.app',
+          // 'https://bingekaro-git-main.vercel.app',
+          // 'https://bingekaro-git-develop.vercel.app',
+          process.env.FRONTEND_URL
+        ].filter(Boolean)
+      : ['http://localhost:3000'];
+    
+    console.log('CORS Origin check:', { origin, allowedOrigins });
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -54,6 +78,17 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
     message: 'BingeKaro API is running',
+    timestamp: new Date().toISOString(),
+    origin: req.get('origin'),
+    headers: req.headers
+  });
+});
+
+// Test endpoint for debugging
+app.get('/api/test', (req, res) => {
+  res.status(200).json({ 
+    message: 'Test endpoint working',
+    origin: req.get('origin'),
     timestamp: new Date().toISOString()
   });
 });
