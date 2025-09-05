@@ -1,8 +1,11 @@
 const axios = require('axios');
 
 // OMDb API configuration
-const OMDB_BASE_URL = process.env.OMDB_BASE_URL || 'http://www.omdbapi.com';
+const OMDB_BASE_URL = process.env.OMDB_BASE_URL || 'https://www.omdbapi.com';
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
+
+console.log('Backend OMDb API Key configured:', OMDB_API_KEY ? 'Yes' : 'No');
+console.log('Backend OMDb Base URL:', OMDB_BASE_URL);
 
 // Create axios instance for OMDb API
 const omdbApi = axios.create({

@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 // OMDB API configuration
-const OMDB_BASE_URL = 'http://www.omdbapi.com';
+const OMDB_BASE_URL = 'https://www.omdbapi.com';
 const OMDB_API_KEY = process.env.REACT_APP_OMDB_API_KEY || 'your_omdb_api_key_here';
+
+console.log('OMDb API Key configured:', OMDB_API_KEY ? 'Yes' : 'No');
+console.log('OMDb Base URL:', OMDB_BASE_URL);
 
 // Create OMDB axios instance
 const omdbAPI = axios.create({
@@ -15,6 +18,8 @@ export const omdbService = {
   // Search movies and TV shows
   search: async (query, type = '', page = 1) => {
     try {
+      console.log('OMDb Search Request:', { query, type, page, apiKey: OMDB_API_KEY ? 'Set' : 'Not Set' });
+      
       const response = await omdbAPI.get('/', {
         params: {
           apikey: OMDB_API_KEY,
@@ -23,6 +28,8 @@ export const omdbService = {
           page: page
         }
       });
+      
+      console.log('OMDb Search Response:', response.data);
       
       if (response.data.Response === 'True') {
         return {
@@ -44,15 +51,22 @@ export const omdbService = {
           total_pages: Math.ceil((parseInt(response.data.totalResults) || 0) / 10)
         };
       } else {
+        console.error('OMDb API Error:', response.data.Error);
         return {
           results: [],
           total_results: 0,
-          total_pages: 0
+          total_pages: 0,
+          error: response.data.Error
         };
       }
     } catch (error) {
-      console.error('OMDB search error:', error);
-      throw error;
+      console.error('OMDb API Request Error:', error);
+      return {
+        results: [],
+        total_results: 0,
+        total_pages: 0,
+        error: error.message
+      };
     }
   },
 
