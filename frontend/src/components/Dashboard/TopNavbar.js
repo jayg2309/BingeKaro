@@ -8,8 +8,7 @@ import {
   LogOut, 
   List, 
   Search, 
-  UserCircle,
-  Plus
+  UserCircle
 } from 'lucide-react';
 
 const TopNavbar = () => {
@@ -51,11 +50,8 @@ const TopNavbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <NavLink to="/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <List className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">BingeKaro</span>
+            <NavLink to="/dashboard/explore" className="text-xl font-bold text-white hover:text-blue-400 transition-colors duration-200">
+              BingeKaro
             </NavLink>
           </div>
 
@@ -82,15 +78,6 @@ const TopNavbar = () => {
 
           {/* Right side - User profile and actions */}
           <div className="flex items-center space-x-4">
-            {/* Create List Button */}
-            <NavLink
-              to="/recommendations/create"
-              className="hidden md:flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-lg hover:scale-105"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Create List</span>
-            </NavLink>
-
             {/* User Profile */}
             <div className="flex items-center space-x-3">
               {user?.profilePicture ? (
@@ -154,16 +141,6 @@ const TopNavbar = () => {
                   </NavLink>
                 );
               })}
-              
-              {/* Mobile Create Button */}
-              <NavLink
-                to="/recommendations/create"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Plus className="w-5 h-5" />
-                <span>Create List</span>
-              </NavLink>
               
               {/* Mobile Logout */}
               <button

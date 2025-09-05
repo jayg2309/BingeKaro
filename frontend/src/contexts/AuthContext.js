@@ -128,10 +128,17 @@ export const AuthProvider = ({ children }) => {
   // Upload profile picture
   const uploadProfilePicture = async (file) => {
     try {
+      console.log('AuthContext: Uploading profile picture:', file.name);
       const response = await authAPI.uploadProfilePicture(file);
-      setUser(response.data.data.user);
+      console.log('AuthContext: Upload response:', response.data);
+      
+      const updatedUser = response.data.data.user;
+      console.log('AuthContext: Updated user:', updatedUser);
+      
+      setUser(updatedUser);
       return { success: true, url: response.data.data.profilePicture };
     } catch (error) {
+      console.error('AuthContext: Upload error:', error);
       return {
         success: false,
         error: error.response?.data?.message || 'Profile picture upload failed'

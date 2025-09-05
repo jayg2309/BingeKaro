@@ -8,9 +8,7 @@ import {
   User, 
   LogOut, 
   Menu, 
-  X, 
-  Plus,
-  Film
+  X
 } from 'lucide-react';
 
 const Layout = ({ children }) => {
@@ -40,11 +38,8 @@ const Layout = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Film className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">BingeKaro</span>
+            <Link to="/recommendations" className="text-xl font-bold text-white hover:text-blue-400 transition-colors duration-200">
+              BingeKaro
             </Link>
 
             {/* Desktop Navigation */}
@@ -70,15 +65,6 @@ const Layout = ({ children }) => {
 
             {/* User Menu */}
             <div className="flex items-center space-x-4">
-              {/* Create Recommendation Button */}
-              <Link
-                to="/recommendations/create"
-                className="hidden md:flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-lg hover:scale-105"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Create List</span>
-              </Link>
-
               {/* User Avatar */}
               <div className="flex items-center space-x-3">
                 {user?.profilePicture ? (
@@ -144,16 +130,6 @@ const Layout = ({ children }) => {
                 );
               })}
               
-              {/* Mobile Create Button */}
-              <Link
-                to="/recommendations/create"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Plus className="w-5 h-5" />
-                <span>Create List</span>
-              </Link>
-              
               {/* Mobile Logout */}
               <button
                 onClick={() => {
@@ -180,9 +156,6 @@ const Layout = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Film className="w-4 h-4 text-white" />
-              </div>
               <span className="text-lg font-bold text-white">BingeKaro</span>
             </div>
             
