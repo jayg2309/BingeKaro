@@ -118,17 +118,17 @@ const ExploreLists = () => {
   }
 
   return (
-    <div>
+    <div className="fade-in">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white mb-2">Explore Lists</h1>
+        <h1 className="text-3xl font-bold text-white mb-2">Explore Lists</h1>
         <p className="text-gray-300 mb-6">
           Search for specific lists or explore all public recommendations
         </p>
 
         {/* Search and Explore Controls */}
         <div className="space-y-4">
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <input
                 type="text"
@@ -136,34 +136,36 @@ const ExploreLists = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="input-field"
               />
             </div>
-            <button
-              onClick={handleSearch}
-              disabled={!searchQuery.trim()}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              Search
-            </button>
-            {searchQuery && (
+            <div className="flex gap-2">
               <button
-                onClick={() => {
-                  setSearchQuery('');
-                  if (hasExplored) {
-                    fetchPublicLists();
-                  } else {
-                    setLists([]);
-                  }
-                }}
-                className="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md shadow-sm text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                onClick={handleSearch}
+                disabled={!searchQuery.trim()}
+                className="btn-primary inline-flex items-center px-6 py-3 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Clear
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                Search
               </button>
-            )}
+              {searchQuery && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    if (hasExplored) {
+                      fetchPublicLists();
+                    } else {
+                      setLists([]);
+                    }
+                  }}
+                  className="btn-secondary inline-flex items-center px-4 py-3 text-sm font-medium"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
           </div>
           
           {/* Explore Button */}
@@ -171,7 +173,7 @@ const ExploreLists = () => {
             <div className="text-center">
               <button
                 onClick={handleExplore}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                className="btn-primary inline-flex items-center px-8 py-4 text-base font-medium"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -187,29 +189,33 @@ const ExploreLists = () => {
       {/* Lists Grid */}
       {!hasExplored && !searchQuery ? (
         <div className="text-center py-16">
-          <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-          </svg>
-          <h3 className="mt-4 text-lg font-medium text-gray-900">Discover Amazing Lists</h3>
-          <p className="mt-2 text-sm text-gray-500 max-w-md mx-auto">
-            Search for specific lists by name, tags, or creator, or explore all public lists to discover new recommendations.
-          </p>
+          <div className="surface-card max-w-lg mx-auto">
+            <svg className="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <h3 className="text-xl font-semibold text-white mb-2">Discover Amazing Lists</h3>
+            <p className="text-gray-300">
+              Search for specific lists by name, tags, or creator, or explore all public lists to discover new recommendations.
+            </p>
+          </div>
         </div>
       ) : lists.length === 0 ? (
         <div className="text-center py-12">
-          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">
-            {searchQuery ? 'No lists found' : 'No public lists available'}
-          </h3>
-          <p className="mt-1 text-sm text-gray-500">
-            {searchQuery 
-              ? 'Try searching with different keywords.' 
-              : 'Be the first to create a public list!'
-            }
-          </p>
+          <div className="surface-card max-w-md mx-auto">
+            <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <h3 className="text-lg font-semibold text-white mb-2">
+              {searchQuery ? 'No lists found' : 'No public lists available'}
+            </h3>
+            <p className="text-gray-300">
+              {searchQuery 
+                ? 'Try searching with different keywords.' 
+                : 'Be the first to create a public list!'
+              }
+            </p>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

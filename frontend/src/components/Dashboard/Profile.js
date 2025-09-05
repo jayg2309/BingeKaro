@@ -97,37 +97,37 @@ const Profile = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto fade-in">
       {/* Header */}
-      <div className="px-6 py-5 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-300">Profile Settings</h1>
-        <p className="mt-2 text-sm text-gray-600">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-white mb-2">Profile Settings</h1>
+        <p className="text-gray-300">
           Manage your account settings and preferences
         </p>
       </div>
 
       {/* Message */}
       {message.text && (
-        <div className={`mb-6 rounded-md p-4 ${
+        <div className={`mb-6 surface-card ${
           message.type === 'success' 
-            ? 'bg-green-900 bg-opacity-20 text-green-400 border border-green-800' 
-            : 'bg-red-900 bg-opacity-20 text-red-400 border border-red-800'
+            ? 'border-green-500 bg-green-900 bg-opacity-20 text-green-400' 
+            : 'border-red-500 bg-red-900 bg-opacity-20 text-red-400'
         }`}>
           {message.text}
         </div>
       )}
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-gray-700 mb-6">
         <nav className="-mb-px flex space-x-8">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
+              className={`py-3 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-all duration-200 ${
                 activeTab === tab.id
-                  ? 'border-indigo-500 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-blue-500 text-blue-400'
+                  : 'border-transparent text-gray-400 hover:text-white hover:border-gray-500'
               }`}
             >
               <span className="mr-2">{tab.icon}</span>
@@ -138,10 +138,10 @@ const Profile = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-gray-700 shadow rounded-lg border border-gray-700">
+      <div className="surface-card">
         {activeTab === 'profile' && (
-          <div className="p-6">
-            <h3 className="text-lg font-medium text-gray-300 mb-6">Profile Information</h3>
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-6">Profile Information</h3>
             
             {/* Profile Picture */}
             <div className="mb-8">
@@ -152,7 +152,7 @@ const Profile = () => {
             <form onSubmit={handleProfileSubmit} className="space-y-6">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+                  <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
                     Full Name
                   </label>
                   <input
@@ -161,13 +161,13 @@ const Profile = () => {
                     id="name"
                     value={profileData.name}
                     onChange={handleProfileChange}
-                    className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="input-field"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-300">
+                  <label htmlFor="username" className="block text-sm font-medium text-white mb-2">
                     Username
                   </label>
                   <input
@@ -176,14 +176,14 @@ const Profile = () => {
                     id="username"
                     value={profileData.username}
                     onChange={handleProfileChange}
-                    className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="input-field"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
                   Email Address
                 </label>
                 <input
@@ -192,13 +192,13 @@ const Profile = () => {
                   id="email"
                   value={profileData.email}
                   onChange={handleProfileChange}
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="input-field"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="bio" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="bio" className="block text-sm font-medium text-white mb-2">
                   Bio
                 </label>
                 <textarea
@@ -207,7 +207,7 @@ const Profile = () => {
                   rows={4}
                   value={profileData.bio}
                   onChange={handleProfileChange}
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="input-field"
                   placeholder="Tell us about yourself..."
                   maxLength={500}
                 />
@@ -220,7 +220,7 @@ const Profile = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="btn-primary px-6 py-3 text-sm font-medium"
                 >
                   {loading ? 'Updating...' : 'Update Profile'}
                 </button>
@@ -230,12 +230,12 @@ const Profile = () => {
         )}
 
         {activeTab === 'security' && (
-          <div className="p-6">
-            <h3 className="text-lg font-medium text-gray-300 mb-6">Change Password</h3>
+          <div>
+            <h3 className="text-xl font-semibold text-white mb-6">Change Password</h3>
             
             <form onSubmit={handlePasswordSubmit} className="space-y-6 max-w-md">
               <div>
-                <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="currentPassword" className="block text-sm font-medium text-white mb-2">
                   Current Password
                 </label>
                 <input
@@ -244,13 +244,13 @@ const Profile = () => {
                   id="currentPassword"
                   value={passwordData.currentPassword}
                   onChange={handlePasswordChange}
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="input-field"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="newPassword" className="block text-sm font-medium text-white mb-2">
                   New Password
                 </label>
                 <input
@@ -259,14 +259,14 @@ const Profile = () => {
                   id="newPassword"
                   value={passwordData.newPassword}
                   onChange={handlePasswordChange}
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="input-field"
                   minLength={6}
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-2">
                   Confirm New Password
                 </label>
                 <input
@@ -275,7 +275,7 @@ const Profile = () => {
                   id="confirmPassword"
                   value={passwordData.confirmPassword}
                   onChange={handlePasswordChange}
-                  className="mt-1 block w-full rounded-md border-gray-600 bg-gray-700 text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="input-field"
                   minLength={6}
                   required
                 />
@@ -285,7 +285,7 @@ const Profile = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="btn-primary px-6 py-3 text-sm font-medium"
                 >
                   {loading ? 'Updating...' : 'Update Password'}
                 </button>
@@ -295,7 +295,7 @@ const Profile = () => {
         )}
 
         {activeTab === 'favorites' && (
-          <div className="p-6">
+          <div>
             <FavoriteMediaSection />
           </div>
         )}
