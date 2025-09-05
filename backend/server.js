@@ -28,6 +28,10 @@ const corsOptions = {
     
     const allowedOrigins = process.env.NODE_ENV === 'production' 
       ? [
+          'https://binge-karo.vercel.app',
+          'https://www.binge-karo.vercel.app',
+          'https://binge-karo-git-main.vercel.app',
+          'https://binge-karo-git-develop.vercel.app',
           process.env.FRONTEND_URL
         ].filter(Boolean)
       : ['http://localhost:3000'];
@@ -43,10 +47,33 @@ const corsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
+// If you're still having CORS issues, temporarily use this more permissive configuration:
+// const corsOptions = {
+//   origin: true, // Allow all origins temporarily for debugging
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+//   optionsSuccessStatus: 200
+// };
+
 app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions));
+
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`, {
+    origin: req.get('origin'),
+    userAgent: req.get('user-agent'),
+    headers: req.headers
+  });
+  next();
+});
 
 // Rate limiting
 const limiter = rateLimit({
