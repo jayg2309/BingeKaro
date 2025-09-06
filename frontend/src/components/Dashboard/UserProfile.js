@@ -117,7 +117,7 @@ const UserProfile = () => {
           )}
           
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
+            <h1 className="text-3xl font-bold text-gray-300">{user.name}</h1>
             <p className="text-lg text-gray-600">@{user.username}</p>
             <div className="mt-2 flex items-center space-x-4 text-sm text-gray-500">
               <span>{lists.length} lists</span>
