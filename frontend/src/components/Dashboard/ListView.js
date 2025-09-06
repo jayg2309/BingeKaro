@@ -6,6 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import MediaSearchModal from './MediaSearchModal';
 import PasswordModal from './PasswordModal';
 import MediaCard from './MediaCard';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 const ListView = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ const ListView = () => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
   const [password, setPassword] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
     fetchList();
@@ -103,20 +106,30 @@ const ListView = () => {
     }
   };
 
-  const handleRemoveMedia = async (tmdbId, mediaType) => {
-    if (!window.confirm('Are you sure you want to remove this item?')) return;
-    
+  const handleRemoveMedia = (imdbId, mediaType) => {
+    setItemToDelete({ imdbId, mediaType });
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteItem = async () => {
+    if (!itemToDelete) return;
+
     try {
-      await recommendationsAPI.removeItem(id, tmdbId, mediaType);
-      
+      await recommendationsAPI.removeItem(id, itemToDelete.imdbId, itemToDelete.mediaType);
+
       // Update local state
       setList(prev => ({
         ...prev,
-        items: prev.items.filter(item => !(item.tmdbId === tmdbId && item.mediaType === mediaType))
+        items: prev.items.filter(item => !(item.imdbId === itemToDelete.imdbId && item.type === itemToDelete.mediaType))
       }));
+
+      setShowDeleteModal(false);
+      setItemToDelete(null);
     } catch (err) {
       console.error('Error removing media:', err);
       alert('Failed to remove media from list');
+      setShowDeleteModal(false);
+      setItemToDelete(null);
     }
   };
 
@@ -284,9 +297,9 @@ const ListView = () => {
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {list.items.map((item) => (
             <MediaCard
-              key={`${item.tmdbId}-${item.mediaType}`}
+              key={`${item.imdbId}-${item.type}`}
               item={item}
-              onRemove={isOwner ? () => handleRemoveMedia(item.tmdbId, item.mediaType) : null}
+              onRemove={isOwner ? () => handleRemoveMedia(item.imdbId, item.type) : null}
             />
           ))}
         </div>
@@ -322,6 +335,18 @@ const ListView = () => {
           onSelect={handleAddMedia}
         />
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setItemToDelete(null);
+        }}
+        onConfirm={confirmDeleteItem}
+        title="Delete Item"
+        message="Are you sure you want to delete this item from the list?"
+      />
     </div>
   );
 };
