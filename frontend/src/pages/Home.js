@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Search, Star, Play, Tv, Film } from 'lucide-react';
 import Layout from '../components/Layout/Layout';
+import Footer from '../components/Footer/Footer';
 
 const Home = () => {
   const { user } = useAuth();
@@ -37,7 +38,7 @@ const Home = () => {
             <>
               <Link
                 to="/login"
-                className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors"
               >
                 Log in
               </Link>
@@ -60,35 +61,57 @@ const Home = () => {
       </header>
 
       {/* Project Name */}
-      <div className="pt-12 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-          BingeKaro
+      <div className="pt-16 pb-2 text-center">
+        <h1 className="group text-5xl md:text-7xl font-bold leading-relaxed px-4 hover:scale-105 transition-all duration-500 cursor-default">
+          <span className="relative inline-block">
+            <span className="absolute inset-0 bg-gradient-to-r from-indigo-400/30 to-purple-500/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-110"></span>
+            <span className="relative z-10 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-2xl">
+              BingeKaro
+            </span>
+          </span>
         </h1>
       </div>
 
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col items-center text-center">
-        <h2 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl">
-          Discover & Share Your Favorite
-          <span className="block text-indigo-400 mt-2">Movies & TV Shows</span>
+      <div className="container mx-auto px-4 py-8 md:py-12 flex flex-col items-center text-center">
+        <h2 className="group text-4xl md:text-6xl font-bold mb-6 max-w-4xl hover:scale-105 transition-all duration-500 cursor-default">
+          <span className="relative inline-block">
+            <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-gray-300/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+            <span className="relative z-10">Discover & Share Your Favorite</span>
+          </span>
+          <span className="block text-indigo-400 mt-2 group-hover:text-indigo-300 transition-colors duration-500">
+            <span className="relative inline-block">
+              <span className="absolute inset-0 bg-gradient-to-r from-indigo-400/20 to-purple-500/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="relative z-10">Movies & TV Shows</span>
+            </span>
+          </span>
         </h2>
-        <p className="text-xl text-gray-300 mb-12 max-w-2xl">
-          Create, explore, and share personalized watchlists with the BingeKaro community.
-          Find your next binge-worthy obsession today!
+        <p className="group text-xl text-gray-300 mb-12 max-w-2xl hover:text-gray-200 transition-all duration-500 cursor-default hover:scale-105">
+          <span className="relative inline-block">
+            <span className="absolute inset-0 bg-gradient-to-r from-gray-300/10 to-white/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+            <span className="relative z-10">
+              Create, explore, and share personalized watchlists with the BingeKaro community.
+              Find your next binge-worthy obsession today!
+            </span>
+          </span>
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={handleGetStartedClick}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+            className="group relative bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden"
           >
-            Get started free
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 to-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="relative z-10">Get started free</span>
           </button>
           <button
             onClick={handleExploreClick}
-            className="bg-transparent hover:bg-gray-800 text-white font-semibold py-3 px-8 border border-gray-600 rounded-lg transition-colors duration-200"
+            className="group relative bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden"
           >
-            Explore lists
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 to-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="relative z-10">Explore lists</span>
           </button>
         </div>
       </div>
@@ -183,6 +206,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
