@@ -27,10 +27,10 @@ const Login = () => {
       
       if (result.success) {
         console.log('✅ Login successful! Redirecting...');
+        toast.success('Login successful!');
         
-        // Immediate redirect without any delays
-        console.log('🔄 Executing immediate redirect to dashboard');
-        window.open('/dashboard', '_self');
+        // Use navigate instead of window.open
+        navigate('/dashboard', { replace: true });
         
         return; // Exit early to prevent setIsLoading(false)
       } else {

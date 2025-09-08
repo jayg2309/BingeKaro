@@ -22,6 +22,13 @@ export const AuthProvider = ({ children }) => {
       console.log('AuthContext: checkAuth called, token:', token);
       
       if (token) {
+        // If user is already set (from login), don't make API call
+        if (user) {
+          console.log('AuthContext: User already set, skipping auth check');
+          setLoading(false);
+          return;
+        }
+        
         try {
           console.log('AuthContext: Checking auth with token:', token);
           const response = await authAPI.getCurrentUser();
@@ -56,11 +63,9 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', newToken);
       setToken(newToken);
       setUser(userData);
+      setLoading(false); // Ensure loading is false after successful login
       
       console.log('AuthContext: User state updated:', userData);
-      
-      // Small delay to ensure state updates
-      await new Promise(resolve => setTimeout(resolve, 100));
       
       return { success: true };
     } catch (error) {
