@@ -21,6 +21,7 @@ const protect = async (req, res, next) => {
       req.user = await User.findById(decoded.id).select('-password');
 
       if (!req.user) {
+        console.log('Auth middleware: User not found for token ID:', decoded.id);
         return res.status(401).json({ message: 'User not found' });
       }
 
