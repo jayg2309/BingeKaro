@@ -216,9 +216,6 @@ npm start    # Start development server
 ### Database
 The application uses MongoDB. Make sure MongoDB is running locally or update the connection string in the `.env` file.
 
-### File Uploads
-Profile pictures are stored in the `backend/uploads` directory and served statically.
-
 ## 🚀 Deployment
 
 ### Backend Deployment
