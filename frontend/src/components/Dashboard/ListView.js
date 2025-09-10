@@ -115,19 +115,19 @@ const ListView = () => {
     if (!itemToDelete) return;
 
     try {
+      console.log('ListView: Removing item:', itemToDelete);
       await recommendationsAPI.removeItem(id, itemToDelete.imdbId, itemToDelete.mediaType);
+      console.log('ListView: Item removed successfully');
 
-      // Update local state
-      setList(prev => ({
-        ...prev,
-        items: prev.items.filter(item => !(item.imdbId === itemToDelete.imdbId && item.type === itemToDelete.mediaType))
-      }));
+      // Refresh the list from server to ensure consistency
+      await fetchList();
 
       setShowDeleteModal(false);
       setItemToDelete(null);
     } catch (err) {
-      console.error('Error removing media:', err);
-      alert('Failed to remove media from list');
+      console.error('ListView: Error removing media:', err);
+      console.error('ListView: Error response:', err.response);
+      alert('Failed to remove media from list: ' + (err.response?.data?.message || err.message));
       setShowDeleteModal(false);
       setItemToDelete(null);
     }

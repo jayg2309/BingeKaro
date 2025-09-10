@@ -148,8 +148,19 @@ recommendationListSchema.methods.addItem = function(itemData, userId) {
 };
 
 // Instance method to remove item from list
-recommendationListSchema.methods.removeItem = function(imdbId) {
-  this.items = this.items.filter(item => item.imdbId !== imdbId);
+recommendationListSchema.methods.removeItem = function(imdbId, mediaType) {
+  console.log('RecommendationList.removeItem - Before removal:', this.items.length, 'items');
+  console.log('RecommendationList.removeItem - Removing item with imdbId:', imdbId, 'and type:', mediaType);
+  
+  this.items = this.items.filter(item => {
+    const shouldKeep = !(item.imdbId === imdbId && item.type === mediaType);
+    if (!shouldKeep) {
+      console.log('RecommendationList.removeItem - Removing item:', { imdbId: item.imdbId, type: item.type, title: item.title });
+    }
+    return shouldKeep;
+  });
+  
+  console.log('RecommendationList.removeItem - After removal:', this.items.length, 'items');
   return this.save();
 };
 
