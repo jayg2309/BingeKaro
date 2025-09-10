@@ -64,31 +64,39 @@ const MediaCard = ({ item, onRemove }) => {
 
   return (
     <div className="group relative bg-dark-surface rounded-lg shadow-sm border border-dark-border hover:shadow-md transition-all duration-200 overflow-hidden">
-      {/* Delete button - bottom right */}
-      {onRemove && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          className="absolute bottom-2 right-2 z-10 p-2 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200"
-          title="Delete item"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      {/* Action buttons - bottom right */}
+      <div className="absolute bottom-2 right-2 z-10 flex items-center space-x-2">
+        {/* Media type icon */}
+        <div className="p-2 bg-gray-800 bg-opacity-80 text-gray-300 rounded-full shadow-lg">
+          {getMediaTypeIcon(item.type)}
+        </div>
+        
+        {/* Delete button */}
+        {onRemove && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemove();
+            }}
+            className="p-2 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200"
+            title="Delete item"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-            />
-          </svg>
-        </button>
-      )}
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
+          </button>
+        )}
+      </div>
 
       {/* Poster */}
       <div className="aspect-[2/3] bg-dark-primary overflow-hidden">
@@ -119,13 +127,10 @@ const MediaCard = ({ item, onRemove }) => {
 
       {/* Content */}
       <div className="p-3">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-sm font-medium text-text-primary line-clamp-2 flex-1 mr-2">
+        <div className="mb-2">
+          <h3 className="text-sm font-medium text-text-primary line-clamp-2">
             {item.title}
           </h3>
-          <div className="flex items-center text-text-muted">
-            {getMediaTypeIcon(item.type)}
-          </div>
         </div>
 
         {/* Rating and Year */}

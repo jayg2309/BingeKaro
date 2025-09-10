@@ -187,6 +187,9 @@ export const recommendationsAPI = {
   
   // Get user's lists by username
   getUserListsByUsername: (username) => api.get(`/recommendations/user/${username}`),
+  
+  // Delete recommendation list
+  deleteList: (id) => api.delete(`/recommendations/${id}`),
 };
 
 // Utility functions
