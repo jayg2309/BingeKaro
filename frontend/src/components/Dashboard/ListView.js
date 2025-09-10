@@ -106,8 +106,8 @@ const ListView = () => {
     }
   };
 
-  const handleRemoveMedia = (imdbId, mediaType) => {
-    setItemToDelete({ imdbId, mediaType });
+  const handleRemoveMedia = (itemId) => {
+    setItemToDelete({ itemId });
     setShowDeleteModal(true);
   };
 
@@ -116,7 +116,7 @@ const ListView = () => {
 
     try {
       console.log('ListView: Removing item:', itemToDelete);
-      await recommendationsAPI.removeItem(id, itemToDelete.imdbId, itemToDelete.mediaType);
+      await recommendationsAPI.removeItem(id, itemToDelete.itemId);
       console.log('ListView: Item removed successfully');
 
       // Refresh the list from server to ensure consistency
@@ -297,9 +297,9 @@ const ListView = () => {
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {list.items.map((item) => (
             <MediaCard
-              key={`${item.imdbId}-${item.type}`}
+              key={item._id}
               item={item}
-              onRemove={isOwner ? () => handleRemoveMedia(item.imdbId, item.type) : null}
+              onRemove={isOwner ? () => handleRemoveMedia(item._id) : null}
             />
           ))}
         </div>

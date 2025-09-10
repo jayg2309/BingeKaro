@@ -179,8 +179,8 @@ export const recommendationsAPI = {
   addItem: (id, itemData) => api.post(`/recommendations/${id}/items`, itemData),
   
   // Remove item from recommendation list
-  removeItem: (id, imdbId, mediaType) => 
-    api.delete(`/recommendations/${id}/items/${imdbId}/${mediaType}`),
+  removeItem: (id, itemId) => 
+    api.delete(`/recommendations/${id}/items/${itemId}`),
   
   // Like recommendation list
   likeList: (id) => api.post(`/recommendations/${id}/like`),

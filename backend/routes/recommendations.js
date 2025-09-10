@@ -528,16 +528,16 @@ router.post('/:id/items', checkOwnership(RecommendationList), [
 }));
 
 /**
- * @route   DELETE /api/recommendations/:id/items/:imdbId/:mediaType
+ * @route   DELETE /api/recommendations/:id/items/:itemId
  * @desc    Remove item from recommendation list
  * @access  Private (owner only)
  */
-router.delete('/:id/items/:imdbId/:mediaType', checkOwnership(RecommendationList), asyncHandler(async (req, res) => {
-  const { imdbId, mediaType } = req.params;
+router.delete('/:id/items/:itemId', checkOwnership(RecommendationList), asyncHandler(async (req, res) => {
+  const { itemId } = req.params;
 
-  console.log('DELETE /recommendations/:id/items/:imdbId/:mediaType - Removing item:', { imdbId, mediaType });
+  console.log('DELETE /recommendations/:id/items/:itemId - Removing item with ID:', itemId);
   
-  await req.resource.removeItem(imdbId, mediaType);
+  await req.resource.removeItem(itemId);
 
   const updatedList = await RecommendationList.findById(req.params.id)
     .populate('creator', 'name username profilePicture')

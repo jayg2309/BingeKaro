@@ -147,18 +147,22 @@ recommendationListSchema.methods.addItem = function(itemData, userId) {
   return this.save();
 };
 
-// Instance method to remove item from list
-recommendationListSchema.methods.removeItem = function(imdbId, mediaType) {
+// Instance method to remove item from list by item ID
+recommendationListSchema.methods.removeItem = function(itemId) {
   console.log('RecommendationList.removeItem - Before removal:', this.items.length, 'items');
-  console.log('RecommendationList.removeItem - Removing item with imdbId:', imdbId, 'and type:', mediaType);
+  console.log('RecommendationList.removeItem - Removing item with ID:', itemId);
   
-  this.items = this.items.filter(item => {
-    const shouldKeep = !(item.imdbId === imdbId && item.type === mediaType);
-    if (!shouldKeep) {
-      console.log('RecommendationList.removeItem - Removing item:', { imdbId: item.imdbId, type: item.type, title: item.title });
-    }
-    return shouldKeep;
-  });
+  const itemToRemove = this.items.find(item => item._id.toString() === itemId.toString());
+  if (itemToRemove) {
+    console.log('RecommendationList.removeItem - Found item to remove:', { 
+      id: itemToRemove._id, 
+      imdbId: itemToRemove.imdbId, 
+      type: itemToRemove.type, 
+      title: itemToRemove.title 
+    });
+  }
+  
+  this.items = this.items.filter(item => item._id.toString() !== itemId.toString());
   
   console.log('RecommendationList.removeItem - After removal:', this.items.length, 'items');
   return this.save();
