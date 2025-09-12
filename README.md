@@ -216,19 +216,6 @@ npm start    # Start development server
 ### Database
 The application uses MongoDB. Make sure MongoDB is running locally or update the connection string in the `.env` file.
 
-## 🚀 Deployment
-
-### Backend Deployment
-1. Set up a MongoDB database (Atlas recommended)
-2. Deploy to your preferred platform (Heroku, Vercel, etc.)
-3. Set environment variables
-4. Ensure file upload directory is writable
-
-### Frontend Deployment
-1. Build the application: `npm run build`
-2. Deploy the `build` folder to your hosting platform
-3. Update API base URL in production
-
 ## 🤝 Contributing
 
 1. Fork the repository
